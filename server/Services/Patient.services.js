@@ -2,7 +2,11 @@ const Patient = require("../modules/patient.model");
 
 async function showAllPatients() {
   try {
-    const allPatients = await Patient.find();
+    const allPatients = await Patient.find().populate(
+      "assignedWard",
+      "specializations wardNumber"
+    );
+
     return allPatients;
   } catch (error) {
     throw new Error(error);

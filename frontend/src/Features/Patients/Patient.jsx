@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPatients } from '../../Reducers/patientSlice';
-// import { StudentModal } from './StudentModal';
-// import { addStudent } from '../../Reducer/studentSlice';
-// import { StudentRow } from './StudentRow';
+import { ListPage } from '../../Components/ListPage';
+import { deletePatient, createPatient } from '../../Reducers/patientSlice';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { PatientModel } from './PatientModel';
+import { EditPatient } from './EditPatient';
 
 export const Patient = () => {
   const { status, error, patients } = useSelector((state) => state.patients);
@@ -15,37 +17,53 @@ export const Patient = () => {
     }
   }, [status, dispatch]);
 
-  // const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  // function openModal() {
-  //   setIsOpen(true);
-  // }
+  function openModal() {
+    setIsOpen(true);
+  }
 
-  // function closeModal() {
-  //   setIsOpen(false);
-  // }
+  function closeModal() {
+    setIsOpen(false);
+  }
 
-  // const addNewStudent = (studentData) => {
-  //   dispatch(addStudent(studentData));
-  // };
+  const addPatient = (patientData) => {
+    dispatch(createPatient(patientData));
+  };
+
+  const deleteTeacherById = (id) => {
+    dispatch(deletePatient(id));
+  };
 
   return (
     <div>
-      {/* <button onClick={openModal}>Open Modal</button> */}
-      {/* <StudentModal
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-        handleSubmit={addNewStudent}
-      /> */}
       {status === 'loading' && <p>Loading...</p>}
       {error && <p>Something is wrong {error}</p>}
+
       <div>
-        {patients &&
-          patients.map((patient) => (
-            <>
-              <p>{patient.name}</p>
-            </>
-          ))}
+        <ListPage
+          column={['Name', 'Age', 'Gender', 'Medical-Issue']}
+          data={patients.map((patient) => [
+            patient.name,
+            patient.age,
+            patient.gender,
+            patient.currentMedicalCondition,
+            <EditPatient key={patient._id} objectToShow={patient} />,
+            <button key={patient._id} onClick={() => deleteTeacherById(patient._id)}>
+              <AiOutlineDelete />
+            </button>
+          ])}
+          title="Patients"
+          description="We believe in practicing medicine with integrity and honesty. We are  always put our patient interest first"
+          image=""
+          openForm={openModal}
+        />
+        <PatientModel
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+          handleSubmit={addPatient}
+          initialState={{}}
+        />
       </div>
     </div>
   );

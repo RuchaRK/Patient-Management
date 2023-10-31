@@ -2,9 +2,8 @@ import { Hospital } from './Features/Hospital';
 import { Route, Routes } from 'react-router-dom';
 import { routeName } from './App.routes';
 import { Patient } from './Features/Patients/Patient';
-// import { Ward } from './Features/Wards';
+import { Ward } from './Features/Wards/Ward';
 import { PageWrapper } from './Components/PageWrapper';
-import './App.css';
 
 function App() {
   return (
@@ -13,7 +12,7 @@ function App() {
         <Routes>
           <Route path={routeName.HOSPITAL} element={<Hospital />} />
           <Route path={routeName.PATIENTS} element={<Patient />} />
-          {/* <Route path={routeName.WARD} element={<Ward />} /> */}
+          <Route path={routeName.WARD} element={<Ward />} />
         </Routes>
       </PageWrapper>
     </>

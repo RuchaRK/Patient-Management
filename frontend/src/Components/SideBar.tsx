@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { TbTargetArrow } from 'react-icons/tb';
-import { RiDashboardFill } from 'react-icons/ri';
-import { MdOutlineFitnessCenter } from 'react-icons/md';
+import * as React from 'react';
+import { BsHospitalFill } from 'react-icons/bs';
+import { FaUserInjured, FaHospitalUser } from 'react-icons/fa';
 import { BiLogOut, BiSolidNotepad } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
 import { routeName } from '../App.routes';
@@ -22,7 +22,7 @@ const SideBarComponent = styled.div`
 `;
 
 const Header = styled.div`
-  color: #f97316;
+  color: #002b9a;
   border-bottom: 1px solid #cbd5e1;
   height: 100px;
   display: flex;
@@ -48,24 +48,19 @@ const IconContainer = styled.div`
 const FooterComponent = styled.div``;
 const menu = [
   {
-    route: routeName.DashBoard,
-    label: 'Dashboard',
-    icon: <RiDashboardFill />
+    route: routeName.HOSPITAL,
+    label: 'Hospital',
+    icon: <BsHospitalFill />
   },
   {
-    route: routeName.EXERCISE,
-    label: 'Workout',
-    icon: <MdOutlineFitnessCenter />
+    route: routeName.PATIENTS,
+    label: 'Patient',
+    icon: <FaUserInjured />
   },
   {
-    route: routeName.FOOD,
-    label: 'Diet Plan',
-    icon: <BiSolidNotepad />
-  },
-  {
-    route: routeName.GOALS,
-    label: 'Goals',
-    icon: <TbTargetArrow />
+    route: routeName.WARD,
+    label: 'Ward',
+    icon: <FaHospitalUser />
   }
 ];
 
@@ -74,7 +69,7 @@ export const SideBar = () => {
     <SideBarComponent>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
         <Header>
-          <h1 style={{ fontSize: '18px' }}>Fitness</h1>
+          <h2>MediLab</h2>
         </Header>
 
         <PagesContainer>
@@ -84,7 +79,7 @@ export const SideBar = () => {
               style={({ isActive }) => {
                 return {
                   fontWeight: isActive ? 'bold' : '',
-                  color: isActive ? '#f97316' : 'black'
+                  color: isActive ? '#002B9A' : 'black'
                 };
               }}>
               <IconContainer>

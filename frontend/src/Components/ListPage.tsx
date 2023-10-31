@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import * as React from 'react';
 
 const ListContainer = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const FirstSection = styled.div(
   height: 160px;
   width: 100%;
   border-radius: 12px;
-  background-image: linear-gradient(90deg, #fc6212 66.28%, rgba(234, 88, 12, 0) 100%), url(${img});
+  background-image: var(--liner-gradian-blue, linear-gradient(68deg, #9083D5 9.64%, #807593 92.49%));, url(${img});
   display: flex;
   justify-content: space-between;
   padding: 4px 32px;

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { CgProfile } from 'react-icons/cg';
+import * as React from 'react';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -25,8 +26,7 @@ export const Header = () => {
   return (
     <HeaderContainer>
       <Greetings>
-        <small>Good Morning</small>
-        <h4>Welcome Back!!!</h4>
+        <h5>Your Partner in Health and Wellness!!!</h5>
       </Greetings>
 
       <IconContainer>

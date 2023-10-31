@@ -31,8 +31,8 @@ export const wardSlice = createSlice({
   initialState: {
     status: 'idle',
     error: null,
-    teachers: [],
-    teacher: null,
+    wards: [],
+    ward: null,
     wizardStatus: 'idle',
     wizardError: 'idle'
   },
@@ -43,7 +43,7 @@ export const wardSlice = createSlice({
     },
     [fetchWards.fulfilled]: (state, action) => {
       state.status = 'success';
-      state.teachers = action.payload;
+      state.wards = action.payload;
     },
     [fetchWards.rejected]: (state, action) => {
       state.status = 'error';
@@ -55,7 +55,7 @@ export const wardSlice = createSlice({
     },
     [fetchAWard.fulfilled]: (state, action) => {
       state.status = 'success';
-      state.teacher = action.payload;
+      state.ward = action.payload;
     },
     [fetchAWard.rejected]: (state, action) => {
       state.status = 'error';
@@ -67,7 +67,7 @@ export const wardSlice = createSlice({
     },
     [createWard.fulfilled]: (state, action) => {
       state.wizardStatus = 'success';
-      state.teachers = action.payload;
+      state.wards = action.payload;
     },
     [createWard.rejected]: (state, action) => {
       (state.wizardError = 'error'), (state.error = action.error.message);
@@ -77,7 +77,7 @@ export const wardSlice = createSlice({
     },
     [deleteWard.fulfilled]: (state, action) => {
       state.wizardStatus = 'success';
-      state.teachers = action.payload;
+      state.wards = action.payload;
     },
     [deleteWard.rejected]: (state, action) => {
       (state.wizardError = 'error'), (state.error = action.error.message);
@@ -87,7 +87,7 @@ export const wardSlice = createSlice({
     },
     [updateWard.fulfilled]: (state, action) => {
       state.wizardStatus = 'success';
-      state.teachers = action.payload;
+      state.wards = action.payload;
     },
     [updateWard.rejected]: (state, action) => {
       (state.wizardError = 'error'), (state.error = action.error.message);

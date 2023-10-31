@@ -31,7 +31,7 @@ const patientSchema = new mongoose.Schema({
   },
   assignedWard: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "ward",
+    ref: "Ward",
   },
 });
 
