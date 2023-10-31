@@ -6,6 +6,11 @@ export const fetchPatients = createAsyncThunk('patients/allPatients', async () =
   return response.data?.allPatients;
 });
 
+export const avgLengthOfStay = createAsyncThunk('patients/lengthofStay', async () => {
+  const response = await axios.get('/api/patients/lengthofStay');
+  return response.data?.lengthOfStay;
+});
+
 export const fetchAPatient = createAsyncThunk('patients/fetchAPatient', async (patientId) => {
   const response = await axios.get(`/api/patients/${patientId}`);
   return response.data?.patient;
@@ -37,7 +42,8 @@ export const patientSlice = createSlice({
     patients: [],
     patient: null,
     wizardStatus: 'idle',
-    wizardError: 'idle'
+    wizardError: 'idle',
+    lengthOfStay: null
   },
   reducers: {},
   extraReducers: {
@@ -49,6 +55,18 @@ export const patientSlice = createSlice({
       state.patients = action.payload;
     },
     [fetchPatients.rejected]: (state, action) => {
+      state.status = 'error';
+
+      state.error = action.error.message;
+    },
+    [avgLengthOfStay.pending]: (state) => {
+      state.status = 'loading';
+    },
+    [avgLengthOfStay.fulfilled]: (state, action) => {
+      state.status = 'success';
+      state.lengthOfStay = action.payload;
+    },
+    [avgLengthOfStay.rejected]: (state, action) => {
       state.status = 'error';
 
       state.error = action.error.message;

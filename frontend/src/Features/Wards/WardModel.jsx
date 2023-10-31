@@ -52,6 +52,13 @@ export const WardModel = ({ modalIsOpen, closeModal, handleSubmit, initialState 
             value={formInput.currentOccupancy}
             onChange={(event) => saveFormDetails(event)}
           />
+          Doctors:
+          <Input
+            type="number"
+            name="doctors"
+            value={formInput.doctors}
+            onChange={(event) => saveFormDetails(event)}
+          />
           <ButtonContainer>
             <button
               disabled={wizardStatus === 'loading'}

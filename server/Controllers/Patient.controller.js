@@ -4,6 +4,7 @@ const patientRouter = express.Router();
 
 const {
   showAllPatients,
+  avgLengthOfStay,
   showAPatient,
   updatePatient,
   deletePatient,
@@ -14,6 +15,18 @@ patientRouter.get("/", async (req, res) => {
   try {
     const allPatients = await showAllPatients();
     res.status(200).json({ message: "Success", allPatients });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error occurred while fetching data.",
+      error: error.message,
+    });
+  }
+});
+
+patientRouter.get("/lengthofStay", async (req, res) => {
+  try {
+    const lengthOfStay = await avgLengthOfStay();
+    res.status(200).json({ message: "Success", lengthOfStay });
   } catch (error) {
     res.status(500).json({
       message: "Error occurred while fetching data.",

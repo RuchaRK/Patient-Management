@@ -1,15 +1,34 @@
+import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Model } from '../../Components/Model';
-import { ButtonContainer, FormContainer, Input, Title } from '../../Components/Model.styles';
+import {
+  ButtonContainer,
+  FormContainer,
+  Input,
+  Select,
+  Title
+} from '../../Components/Model.styles';
+import { fetchWards } from '../../Reducers/wardSlice';
 
 export const PatientModel = ({ modalIsOpen, closeModal, handleSubmit, initialState }) => {
   const [formInput, setFormInput] = useState(initialState ? initialState : { gender: 'Male' });
   const { wizardStatus } = useSelector((state) => state.patients);
+  const { wards, status } = useSelector((state) => state.wards);
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchWards());
+    }
+  }, [status, dispatch]);
 
   const saveFormDetails = (event) => {
     setFormInput({ ...formInput, [event.target.name]: event.target.value });
   };
+
+  console.log(wards);
 
   useEffect(() => {
     if (wizardStatus === 'success') {
@@ -77,6 +96,18 @@ export const PatientModel = ({ modalIsOpen, closeModal, handleSubmit, initialSta
             value={formInput.currentMedicalCondition}
             onChange={(event) => saveFormDetails(event)}
           />
+          Ward:
+          {status === 'loading' ? (
+            'loading...'
+          ) : (
+            <Select name="ward" value={formInput.ward} onChange={(event) => saveFormDetails(event)}>
+              {wards.map((ward) => (
+                <option key={ward._id} value={ward._id}>
+                  {ward.wardNumber}-{ward.specializations}
+                </option>
+              ))}
+            </Select>
+          )}
           Length of Stay(in days):
           <Input
             type="number"

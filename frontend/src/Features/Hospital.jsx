@@ -2,7 +2,10 @@ import styled from '@emotion/styled';
 import { FaUserInjured, FaHospitalUser } from 'react-icons/fa';
 import { BiSolidInjection } from 'react-icons/bi';
 import { GiTrophy } from 'react-icons/gi';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as React from 'react';
+import { fetchAPatient } from '../Reducers/patientSlice';
+import { fetchWards } from '../Reducers/wardSlice';
 
 const MainContainer = styled.div`
   display: flex;
@@ -30,7 +33,7 @@ const InfoCard = styled.div`
   padding: 20px;
   gap: 12px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   border-radius: 15px;
   background: #fff;
   width: 226px;
@@ -52,8 +55,31 @@ const RightContainer = styled.div`
 `;
 
 export const Hospital = () => {
-  const { wards } = useSelector((state) => state.wards);
-  const { patients } = useSelector((state) => state.patients);
+  const { wards, status: wardStatus } = useSelector((state) => state.wards);
+  const { patients, status: patientStatus } = useSelector((state) => state.patients);
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (wardStatus === 'idle') {
+      dispatch(fetchWards());
+    }
+  }, [wardStatus, dispatch]);
+
+  React.useEffect(() => {
+    if (patientStatus === 'idle') {
+      dispatch(fetchAPatient());
+    }
+  }, [patientStatus, dispatch]);
+
+  const wardwithMorePatients = patients.reduce((acc, cum) => {
+    if (!acc[cum.assignedWard]) {
+      acc[cum.assignedWard] = 0;
+    }
+    acc[cum.assignedWard] = 1 + acc[cum.assignedWard];
+    return acc;
+  }, {});
+
   return (
     <MainContainer>
       <LeftContainer>
@@ -61,7 +87,7 @@ export const Hospital = () => {
           <FaUserInjured size={40} />
           <Content>
             <h5>Total Patients</h5>
-            <h5>{patients.length}</h5>
+            <h5>{patientStatus === 'loading' ? 'loading...' : patients.length}</h5>
           </Content>
         </InfoCard>
 
@@ -69,7 +95,11 @@ export const Hospital = () => {
           <BiSolidInjection size={40} />
           <Content>
             <h5>Total Doctors</h5>
-            <h5>20</h5>
+            <h5>
+              {wardStatus === 'loading'
+                ? 'loading...'
+                : wards.reduce((count, ward) => ward.doctors ?? 0 + count, 0)}
+            </h5>
           </Content>
         </InfoCard>
 
@@ -77,31 +107,38 @@ export const Hospital = () => {
           <FaHospitalUser size={40} />
           <Content>
             <h5>Total Ward</h5>
-            <h5>{wards.length}</h5>
+            <h5>{wardStatus === 'loading' ? 'loading...' : wards.length}</h5>
           </Content>
         </InfoCard>
 
         <InfoCard>
           <GiTrophy size={40} />
           <Content>
-            <h5>Ward with very less patients</h5>
-            <h5>100</h5>
+            <h5>Current Occupancy</h5>
+            <h5>{patientStatus === 'loading' ? 'loading...' : patients.length} beds</h5>
           </Content>
         </InfoCard>
 
         <InfoCard>
           <GiTrophy size={40} />
           <Content>
-            <h5>Ward with best labs</h5>
-            <h5>100</h5>
+            <h5>Average Length of Stay</h5>
+            <h5>
+              {patientStatus === 'loading'
+                ? 'loading...'
+                : Math.ceil(
+                    patients.reduce((sum, patient) => sum + patient.lengthOfStay, 0) /
+                      patients.length
+                  )}
+            </h5>
           </Content>
         </InfoCard>
 
         <InfoCard>
           <GiTrophy size={40} />
           <Content>
-            <h5>Ward with quick patient </h5>
-            <h5>100</h5>
+            <h5>Top performing Ward. </h5>
+            <h5>{wardwithMorePatients}</h5>
           </Content>
         </InfoCard>
       </LeftContainer>

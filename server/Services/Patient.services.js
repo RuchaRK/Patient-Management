@@ -13,19 +13,6 @@ async function showAllPatients() {
   }
 }
 
-async function avgLengthOfStay() {
-  try {
-    const allPatients = await showAllPatients();
-    const total = await allPatients.reduce(
-      (acc, cum) => acc.lengthOfStay + cum.lengthOfStay,
-      0
-    );
-    const avg = (await total) / allPatients.length();
-  } catch (error) {
-    throw new Error(error);
-  }
-}
-
 async function showAPatient(patientId) {
   try {
     const patient = await Patient.findById(patientId);
@@ -68,7 +55,6 @@ async function updatePatient(patientId, updateData) {
 
 module.exports = {
   showAllPatients,
-  avgLengthOfStay,
   showAPatient,
   updatePatient,
   deletePatient,
