@@ -42,12 +42,13 @@ export const Patient = () => {
 
       <div>
         <ListPage
-          column={['Name', 'Age', 'Gender', 'Medical-Issue']}
+          column={['Name', 'Age', 'Gender', 'Medical-Issue', 'Ward']}
           data={patients.map((patient) => [
             patient.name,
             patient.age,
             patient.gender,
             patient.currentMedicalCondition,
+            patient.assignedWard?.specializations ?? '--',
             <EditPatient key={patient._id} objectToShow={patient} />,
             <button key={patient._id} onClick={() => deleteTeacherById(patient._id)}>
               <AiOutlineDelete />

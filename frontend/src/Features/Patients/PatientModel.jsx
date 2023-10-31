@@ -42,7 +42,7 @@ export const PatientModel = ({ modalIsOpen, closeModal, handleSubmit, initialSta
     <div>
       <Model isOpen={modalIsOpen} onRequestClose={closeModal}>
         <FormContainer>
-          <Title>New Food</Title>
+          <Title>New Patient</Title>
           Name:
           <Input
             type="text"

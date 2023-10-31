@@ -23,7 +23,7 @@ export const WardModel = ({ modalIsOpen, closeModal, handleSubmit, initialState 
     <div>
       <Model isOpen={modalIsOpen} onRequestClose={closeModal}>
         <FormContainer>
-          <Title>New Food</Title>
+          <Title>New Ward</Title>
           Specialization:
           <Input
             type="text"
