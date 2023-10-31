@@ -4,7 +4,7 @@ import { BiSolidInjection } from 'react-icons/bi';
 import { GiTrophy } from 'react-icons/gi';
 import { useSelector, useDispatch } from 'react-redux';
 import * as React from 'react';
-import { fetchAPatient } from '../Reducers/patientSlice';
+import { fetchPatients } from '../Reducers/patientSlice';
 import { fetchWards } from '../Reducers/wardSlice';
 
 const MainContainer = styled.div`
@@ -68,17 +68,9 @@ export const Hospital = () => {
 
   React.useEffect(() => {
     if (patientStatus === 'idle') {
-      dispatch(fetchAPatient());
+      dispatch(fetchPatients());
     }
   }, [patientStatus, dispatch]);
-
-  const wardwithMorePatients = patients.reduce((acc, cum) => {
-    if (!acc[cum.assignedWard]) {
-      acc[cum.assignedWard] = 0;
-    }
-    acc[cum.assignedWard] = 1 + acc[cum.assignedWard];
-    return acc;
-  }, {});
 
   return (
     <MainContainer>
@@ -98,7 +90,7 @@ export const Hospital = () => {
             <h5>
               {wardStatus === 'loading'
                 ? 'loading...'
-                : wards.reduce((count, ward) => ward.doctors ?? 0 + count, 0)}
+                : wards.reduce((count, ward) => (ward.doctors ?? 0) + count, 0)}
             </h5>
           </Content>
         </InfoCard>
@@ -127,7 +119,7 @@ export const Hospital = () => {
               {patientStatus === 'loading'
                 ? 'loading...'
                 : Math.ceil(
-                    patients.reduce((sum, patient) => sum + patient.lengthOfStay, 0) /
+                    patients.reduce((sum, patient) => sum + (patient.lengthOfStay ?? 0), 0) /
                       patients.length
                   )}
             </h5>
@@ -138,7 +130,7 @@ export const Hospital = () => {
           <GiTrophy size={40} />
           <Content>
             <h5>Top performing Ward. </h5>
-            <h5>{wardwithMorePatients}</h5>
+            <h5>{wards ? `${wards[0].wardNumber}-${wards[0].specializations}` : '--'}</h5>
           </Content>
         </InfoCard>
       </LeftContainer>

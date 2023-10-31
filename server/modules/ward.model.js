@@ -18,7 +18,7 @@ const wardSchema = new mongoose.Schema({
     required: true,
   },
   doctors: {
-    type: number,
+    type: Number,
     required: true,
   },
 });
