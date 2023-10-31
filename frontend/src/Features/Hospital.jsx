@@ -130,7 +130,7 @@ export const Hospital = () => {
           <GiTrophy size={40} />
           <Content>
             <h5>Top performing Ward. </h5>
-            <h5>{wards ? `${wards[0].wardNumber}-${wards[0].specializations}` : '--'}</h5>
+            <h5>{wards[0] ? `${wards[0].wardNumber}-${wards[0].specializations}` : '--'}</h5>
           </Content>
         </InfoCard>
       </LeftContainer>
