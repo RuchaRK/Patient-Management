@@ -28,15 +28,11 @@ export const PatientModel = ({ modalIsOpen, closeModal, handleSubmit, initialSta
     setFormInput({ ...formInput, [event.target.name]: event.target.value });
   };
 
-  console.log(wards);
-
   useEffect(() => {
     if (wizardStatus === 'success') {
       closeModal();
     }
   }, [wizardStatus]);
-
-  console.log(formInput);
 
   return (
     <div>
@@ -100,7 +96,10 @@ export const PatientModel = ({ modalIsOpen, closeModal, handleSubmit, initialSta
           {status === 'loading' ? (
             'loading...'
           ) : (
-            <Select name="ward" value={formInput.ward} onChange={(event) => saveFormDetails(event)}>
+            <Select
+              name="assignedWard"
+              value={formInput.ward}
+              onChange={(event) => saveFormDetails(event)}>
               {wards.map((ward) => (
                 <option key={ward._id} value={ward._id}>
                   {ward.wardNumber}-{ward.specializations}
@@ -122,7 +121,6 @@ export const PatientModel = ({ modalIsOpen, closeModal, handleSubmit, initialSta
                 e.preventDefault();
                 handleSubmit(formInput);
                 closeModal();
-                setFormInput({});
               }}>
               {wizardStatus === 'loading' ? 'Submitting...' : 'Submit'}
             </button>

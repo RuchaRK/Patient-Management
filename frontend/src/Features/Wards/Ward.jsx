@@ -43,7 +43,12 @@ export const Ward = () => {
 
       <div>
         <ListPage
-          column={['WardNumber', 'Specializations', 'Capacity', 'CurrentOccupancy']}
+          column={[
+            'Ward Number',
+            'Specializations',
+            'Capacity(beds)',
+            'Current Occupancy(patients)'
+          ]}
           data={wards.map((ward) => [
             ward.wardNumber,
             ward.specializations,

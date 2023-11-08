@@ -6,16 +6,6 @@ export const fetchPatients = createAsyncThunk('patients/allPatients', async () =
   return response.data?.allPatients;
 });
 
-export const avgLengthOfStay = createAsyncThunk('patients/lengthofStay', async () => {
-  const response = await axios.get('/api/patients/lengthofStay');
-  return response.data?.lengthOfStay;
-});
-
-export const fetchAPatient = createAsyncThunk('patients/fetchAPatient', async (patientId) => {
-  const response = await axios.get(`/api/patients/${patientId}`);
-  return response.data?.patient;
-});
-
 export const createPatient = createAsyncThunk('patients/addPatient', async (patientData) => {
   const response = await axios.post('/api/patients', patientData);
   return response.data?.allPatients;
@@ -41,8 +31,10 @@ export const patientSlice = createSlice({
     error: null,
     patients: [],
     patient: null,
+    patientStatus: 'idle',
+    patientError: '',
     wizardStatus: 'idle',
-    wizardError: 'idle',
+    wizardError: '',
     lengthOfStay: null
   },
   reducers: {},
@@ -55,30 +47,6 @@ export const patientSlice = createSlice({
       state.patients = action.payload;
     },
     [fetchPatients.rejected]: (state, action) => {
-      state.status = 'error';
-
-      state.error = action.error.message;
-    },
-    [avgLengthOfStay.pending]: (state) => {
-      state.status = 'loading';
-    },
-    [avgLengthOfStay.fulfilled]: (state, action) => {
-      state.status = 'success';
-      state.lengthOfStay = action.payload;
-    },
-    [avgLengthOfStay.rejected]: (state, action) => {
-      state.status = 'error';
-
-      state.error = action.error.message;
-    },
-    [fetchAPatient.pending]: (state) => {
-      state.status = 'loading';
-    },
-    [fetchAPatient.fulfilled]: (state, action) => {
-      state.status = 'success';
-      state.patient = action.payload;
-    },
-    [fetchAPatient.rejected]: (state, action) => {
       state.status = 'error';
 
       state.error = action.error.message;

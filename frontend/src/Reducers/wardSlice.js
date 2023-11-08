@@ -6,11 +6,6 @@ export const fetchWards = createAsyncThunk('wards/allWards', async () => {
   return response.data?.allWards;
 });
 
-export const fetchAWard = createAsyncThunk('wards/fetchAWard', async (wardId) => {
-  const response = await axios.get(`/api/wards/${wardId}`);
-  return response.data?.ward;
-});
-
 export const createWard = createAsyncThunk('wards/addWard', async (wardData) => {
   const response = await axios.post('/api/wards', wardData);
   return response.data?.allWards;

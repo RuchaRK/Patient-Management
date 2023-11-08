@@ -15,7 +15,10 @@ async function showAllPatients() {
 
 async function showAPatient(patientId) {
   try {
-    const patient = await Patient.findById(patientId);
+    const patient = await Patient.findById(patientId).populate(
+      "assignedWard",
+      "specializations wardNumber"
+    );
     return patient;
   } catch (error) {
     throw new Error(error);

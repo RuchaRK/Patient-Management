@@ -6,6 +6,7 @@ import { deletePatient, createPatient } from '../../Reducers/patientSlice';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { PatientModel } from './PatientModel';
 import { EditPatient } from './EditPatient';
+import { Link } from 'react-router-dom';
 
 export const Patient = () => {
   const { status, error, patients } = useSelector((state) => state.patients);
@@ -35,6 +36,8 @@ export const Patient = () => {
     dispatch(deletePatient(id));
   };
 
+  console.log(patients);
+
   return (
     <div>
       {status === 'loading' && <p>Loading...</p>}
@@ -44,7 +47,9 @@ export const Patient = () => {
         <ListPage
           column={['Name', 'Age', 'Gender', 'Medical-Issue', 'Ward']}
           data={patients.map((patient) => [
-            patient.name,
+            <Link to={patient._id} key={patient._id}>
+              {patient.name}
+            </Link>,
             patient.age,
             patient.gender,
             patient.currentMedicalCondition,

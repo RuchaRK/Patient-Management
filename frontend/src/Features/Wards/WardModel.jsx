@@ -66,7 +66,7 @@ export const WardModel = ({ modalIsOpen, closeModal, handleSubmit, initialState 
                 e.preventDefault();
                 handleSubmit(formInput);
                 closeModal();
-                setFormInput({});
+                
               }}>
               {wizardStatus === 'loading' ? 'Submitting...' : 'Submit'}
             </button>
