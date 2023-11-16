@@ -58,10 +58,7 @@ export const SinglePatient = () => {
         <KeyValuePair keyText={'Gender'} valueText={singlePatient?.gender} />
         <KeyValuePair keyText={'Medical History'} valueText={singlePatient?.medicalHistory} />
         <KeyValuePair keyText={'Contact'} valueText={singlePatient?.contact} />
-        <KeyValuePair
-          keyText={'Current Medical Condition'}
-          valueText={singlePatient?.currentMedicalCondition}
-        />
+        <KeyValuePair keyText={'Skills'} valueText={singlePatient?.currentMedicalCondition} />
         <KeyValuePair keyText={'Length of Stay'} valueText={singlePatient?.lengthOfStay} />
         <KeyValuePair
           keyText={'Assigned Ward'}
