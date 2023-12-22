@@ -62,7 +62,7 @@ export const SinglePatient = () => {
         <KeyValuePair keyText={'Length of Stay'} valueText={singlePatient?.lengthOfStay} />
         <KeyValuePair
           keyText={'Assigned Ward'}
-          valueText={singlePatient?.assignedWard.specializations}
+          valueText={singlePatient?.assignedWard?.specializations ?? '--'}
         />
       </DataContainer>
     </MainContainer>

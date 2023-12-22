@@ -100,6 +100,9 @@ export const PatientModel = ({ modalIsOpen, closeModal, handleSubmit, initialSta
               name="assignedWard"
               value={formInput.ward}
               onChange={(event) => saveFormDetails(event)}>
+              <option selected disabled>
+                select specializations
+              </option>
               {wards.map((ward) => (
                 <option key={ward._id} value={ward._id}>
                   {ward.wardNumber}-{ward.specializations}
