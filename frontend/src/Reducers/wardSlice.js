@@ -45,18 +45,6 @@ export const wardSlice = createSlice({
 
       state.error = action.error.message;
     },
-    [fetchAWard.pending]: (state) => {
-      state.status = 'loading';
-    },
-    [fetchAWard.fulfilled]: (state, action) => {
-      state.status = 'success';
-      state.ward = action.payload;
-    },
-    [fetchAWard.rejected]: (state, action) => {
-      state.status = 'error';
-
-      state.error = action.error.message;
-    },
     [createWard.pending]: (state) => {
       state.wizardStatus = 'loading';
     },

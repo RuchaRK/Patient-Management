@@ -5,7 +5,7 @@ import { ListPage } from '../../Components/ListPage';
 import { WardModel } from './WardModel';
 import { EditWard } from './EditWard';
 import { AiOutlineDelete } from 'react-icons/ai';
-
+import { Link } from 'react-router-dom';
 export const Ward = () => {
   const { status, error, wards } = useSelector((state) => state.wards);
   const dispatch = useDispatch();
@@ -50,7 +50,9 @@ export const Ward = () => {
             'Current Occupancy(patients)'
           ]}
           data={wards.map((ward) => [
-            ward.wardNumber,
+            <Link to={ward._id} key={ward._id}>
+              {ward.wardNumber}
+            </Link>,
             ward.specializations,
             ward.capacity,
             ward.currentOccupancy,

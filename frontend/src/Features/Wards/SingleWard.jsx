@@ -47,9 +47,9 @@ export const SingleWard = () => {
         <h2>{singleWard?.specializations}</h2>
       </Title>
       <DataContainer>
-        <KeyValuePair keyText={'Age'} valueText={singleWard?.wardNumber} />
-        <KeyValuePair keyText={'Gender'} valueText={singleWard?.capacity} />
-        <KeyValuePair keyText={'Medical History'} valueText={singleWard?.currentOccupancy} />
+        <KeyValuePair keyText={'Ward Number'} valueText={singleWard?.wardNumber} />
+        <KeyValuePair keyText={'Capacity'} valueText={singleWard?.capacity} />
+        <KeyValuePair keyText={'Current Occupancy'} valueText={singleWard?.currentOccupancy} />
         <KeyValuePair keyText={'Doctors'} valueText={singleWard?.doctors} />
       </DataContainer>
     </MainContainer>
